@@ -17,7 +17,7 @@ all AWS regions which prolongs its completion.
 
 The script [install-ui-aws-dbx.sh](../scripts/install-ui-aws-dbx.sh) can now be downloaded and executed, it manages all installation and configuration steps:
 ``` bash
-[ec2-user@ip-123 ~]$ wget https://github.com/xonai-computing/xonai-dashboard/tree/master/scripts/install-ui-aws-dbx.sh # Download script
+[ec2-user@ip-123 ~]$ wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/scripts/install-ui-aws-dbx.sh # Download script
 [ec2-user@ip-123 ~]$ bash install-ui-aws-dbx.sh
 ```
 The final message "Installation of Xonai Dashboard completed" indicates that our Grafana dashboards can be accessed as described in the [usage](./usage.md) document, several post installation checks
