@@ -1,5 +1,5 @@
 # Xonai Dashboard
-The Xonai Dashboard is Grafana-based application to assist Big Data infrastructure optimization initiatives where Spark applications are a dominant cost driver.
+The Xonai Dashboard is a Grafana-based application to assist Big Data infrastructure optimization initiatives where Spark applications are a dominant cost driver.
 It aggregates infrastructure utilization metrics, Spark execution metrics and cloud cost estimates for entire clusters and down to each individual Spark application with the goal of exposing optimization opportunities.
 
 The ingested metrics are parsed and visualized across multiple cross-linked Grafana dashboards:
