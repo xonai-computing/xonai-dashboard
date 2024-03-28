@@ -188,7 +188,7 @@
         "type": "simpod-json-datasource",
         "uid": "jsondatasource"
       },
-      "description": "Derives application cost from cluster cost, divides app CPU time by total cluster CPU time and multiplies by estimated cluster cost. The cost of a particular cluster is the sum of individual cost estimations of its instances, the logic supports on-demand and spot prices.",
+      "description": "Derives application cost from cluster cost: Divides app CPU time by total cluster CPU time and multiplies by estimated cluster cost. The cost of a particular cluster is the sum of individual cost estimations of its instances, the logic supports on-demand and spot prices.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5081,6 +5081,6 @@
   "timezone": "",
   "title": "Spark Info",
   "uid": "LUBn5IKVz2",
-  "version": 34,
+  "version": 35,
   "weekStart": ""
 }

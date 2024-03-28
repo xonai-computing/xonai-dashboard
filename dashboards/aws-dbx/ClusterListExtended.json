@@ -40,6 +40,7 @@
         "type": "simpod-json-datasource",
         "uid": "jsondatasource"
       },
+      "description": "Overview of Databricks clusters launched in the configured workspace. The cost of a particular cluster is the sum of individual cost estimations of its instances and based on EC2 list prices and DBU prices, spot pricing is not yet accounted for.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -627,6 +628,6 @@
   "timezone": "",
   "title": "Cluster List Extended",
   "uid": "aef54b17-7d66-4e8a-b26b-1da089390b9d",
-  "version": 15,
+  "version": 19,
   "weekStart": ""
 }

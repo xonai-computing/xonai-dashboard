@@ -4739,9 +4739,10 @@
     "list": [
       {
         "current": {
+          "isNone": true,
           "selected": false,
-          "text": "app-20240311134656-0000",
-          "value": "app-20240311134656-0000"
+          "text": "None",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",

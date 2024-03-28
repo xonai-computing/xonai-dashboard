@@ -40,7 +40,7 @@
         "type": "simpod-json-datasource",
         "uid": "jsondatasource"
       },
-      "description": "All values displayed in the cost column are estimations. The cost of a particular cluster is the sum of individual cost estimations of its instances, the logic supports on-demand and spot prices.",
+      "description": "All cost quantities are estimations. The cost of a particular cluster is the sum of individual cost estimations of its instances, the logic supports on-demand and spot prices.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -621,6 +621,6 @@
   "timezone": "",
   "title": "Cluster List Extended",
   "uid": "d63f7af4-a7c4-4994-86fc-5eb1a7109bae",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }

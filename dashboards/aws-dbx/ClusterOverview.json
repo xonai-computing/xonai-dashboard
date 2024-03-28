@@ -229,7 +229,7 @@
         "type": "simpod-json-datasource",
         "uid": "jsondatasource"
       },
-      "description": "",
+      "description": "The cost of a particular cluster is the sum of individual cost estimations of its instances and based on EC2 list prices and DBU prices, spot pricing is not yet accounted for. All-Purpose clusters that were restarted might not be fully supported.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -606,7 +606,7 @@
         "type": "datasource",
         "uid": "-- Dashboard --"
       },
-      "description": "Estimated cost based on list prices of the EC2 instances",
+      "description": "The cost of a particular cluster is the sum of individual cost estimations of its instances and based on EC2 list prices and DBU prices, spot pricing is not yet accounted for. All-Purpose clusters that were restarted might not be fully supported.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -674,6 +674,7 @@
         "type": "prometheus",
         "uid": "prometheusdatasource"
       },
+      "description": "Spark apps that ran on the selected cluster. All-Purpose clusters that were restarted might not be fully supported.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6880,6 +6881,6 @@
   "timezone": "browser",
   "title": "Cluster Overview",
   "uid": "rpqMAe3Zk32",
-  "version": 19,
+  "version": 29,
   "weekStart": ""
 }
