@@ -7,7 +7,7 @@ we can [SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-to-linu
 Before the installation script is executed on the UI instance, the two Databricks authentication variables [mentioned](./prerequ-aws-dbx.md#databricks-authentication) in the prerequisites page need to 
 be declared as follows:
 ``` bash
-[ec2-user@ip-123 ~]$ export DATABRICKS_HOST=https://dbc-12345678-90a1.cloud.databricks.com
+[ec2-user@ip-123 ~]$ export DATABRICKS_HOST=https://dbc-12345678-90a1.cloud.databricks.com # ToDo: Change value
 [ec2-user@ip-123 ~]$ export DATABRICKS_TOKEN=abc123ab45ae6adaf789aa0a00000000000 # ToDo: Change value
 ```
 
