@@ -46,7 +46,7 @@ pull mode installation that tries to determine the UI instance's region. This re
 The script [bootstrap-emr-pull.sh](../scripts/bootstrap-emr-pull.sh) needs to be referenced in a bootstrap action: When creating a cluster, paste its S3 URI
 into the "Script location" field of the "Add bootstrap action" window, no additional arguments like peer addresses are required:
 
- <img src="../images/BootstrapPull.png" width="528" height="143" />
+<img src="../images/BootstrapPull.png" width="533" height="103" />
 
 ### Anonymous Access and Embeddings
 Grafana's default password [authentication](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/#configure-authentication) can be disabled by declaring an
