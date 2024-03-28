@@ -7,7 +7,7 @@ A few optional environment variables that influence the installation process and
 We recommend the definition of the `AWS_REGIONS` [variable](./misc.md/#limiting-aws-regions) that encodes the AWS region(s) where clusters will be launched. If unset, the script accesses cost data for 
 all AWS regions which prolongs its completion.
 
-Our [install-ui-emr.sh](../scripts/install-ui-emr.sh) script can now be downloaded and executed, it manages all installation and configuration steps:
+The script [install-ui-emr.sh](../scripts/install-ui-emr.sh) can now be downloaded and executed, it manages all installation and configuration steps:
 ``` bash
 [ec2-user@ip-123 ~]$ wget https://github.com/xonai-computing/xonai-dashboard/tree/master/scripts/install-ui-emr.sh # Download script
 [ec2-user@ip-123 ~]$ bash install-ui-emr.sh
@@ -18,7 +18,7 @@ mentioned in the testing [chapter](./checks.md). Cluster metadata and cost estim
 change after bootstrapping an EMR cluster with our script which is the topic of the next section.
 
 ## Monitoring EMR clusters
-Our cluster bootstrap scripts automate the configuration of Spark's internal metric system as well as the installation of collector daemons that periodically transmit or publish telemetry data. The 
+The cluster bootstrap scripts automate the configuration of Spark's internal metric system as well as the installation of collector daemons that periodically transmit or publish telemetry data. The 
 script choice depends on which ingestion mode was activated during the UI installation, [bootstrap-emr-push.sh](../scripts/bootstrap-emr-push.sh) is the relevant file for the default mode which was
 used in the installation section above. The bootstrap script should be copied into an S3 bucket that tracked clusters are able to access. [This](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-bootstrap.html)
 AWS guide explores cluster bootstrapping in more detail.
