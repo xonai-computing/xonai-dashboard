@@ -9,7 +9,7 @@ all AWS regions which prolongs its completion.
 
 The script [install-ui-emr.sh](../scripts/install-ui-emr.sh) can now be downloaded and executed, it manages all installation and configuration steps:
 ``` bash
-[ec2-user@ip-123 ~]$ wget https://github.com/xonai-computing/xonai-dashboard/tree/master/scripts/install-ui-emr.sh # Download script
+[ec2-user@ip-123 ~]$ wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/scripts/install-ui-emr.sh # Download script
 [ec2-user@ip-123 ~]$ bash install-ui-emr.sh
 ```
 

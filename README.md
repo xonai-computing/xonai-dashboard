@@ -22,7 +22,7 @@ between the monitoring components, no information (except for visualizations) le
 The prerequisites chapters cover the configuration of the instance that hosts the UI. After all steps have been completed, we can [SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-to-linux-instance.html) into the UI server and execute the relevant installation 
 script. For example, the UI backend can be configured for EMR with these commands:
 ``` bash
-[ec2-user@ip-123 ~]$ wget https://github.com/xonai-computing/xonai-dashboard/tree/master/scripts/install-ui-emr.sh # Download script
+[ec2-user@ip-123 ~]$ wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/scripts/install-ui-emr.sh # Download script
 [ec2-user@ip-123 ~]$ bash install-ui-emr.sh
 ```
 
