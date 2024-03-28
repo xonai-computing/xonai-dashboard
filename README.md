@@ -47,13 +47,13 @@ for the Xonai Dashboard.
 
 # Contributing
 
-The Xonai Dashboard was just released and Xonai plans to bring many new features, such as supporting new cloud providers and making the it better at pinpointing issues in monitored clusters.
+The Xonai Dashboard was just released and Xonai plans to bring many new features, such as supporting new cloud providers and making it better at pinpointing issues in monitored clusters.
 Contributing with bugfixes, improvements and suggestions for new features are very welcome.
 
-## [Code of Conduct](./CODE_OF_CONDUCT.md)
+## Code of Conduct
 
 Xonai has adopted a Code of Conduct for which all project participants are expected to adhere to. Please read [the full text](./CODE_OF_CONDUCT.md) to understand the implications.
 
-## License
+## License
 
 Xonai Dashboard is [Apache 2.0 Licensed](./LICENSE).
