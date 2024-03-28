@@ -1,4 +1,5 @@
-# Xonai Dashboard
+# Xonai Dashboard &middot; [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
 The Xonai Dashboard is a Grafana-based application to assist Big Data infrastructure optimization initiatives where Spark applications are a dominant cost driver.
 It aggregates infrastructure utilization metrics, Spark execution metrics and cloud cost estimates for entire clusters and down to each individual Spark application with the goal of exposing optimization opportunities.
 
@@ -43,3 +44,16 @@ for the Xonai Dashboard.
 | Amazon EMR        | [Prerequisites](./docs/prerequ-emr.md)        | [Setup](./docs/setup-emr.md)             | [install-ui-emr.sh](./scripts/install-ui-emr.sh)         | [bootstrap-emr-push.sh](./scripts/bootstrap-emr-push.sh)  |
 | Databricks on AWS | [Prerequisites](./docs/prerequ-aws-dbx.md)    | [Setup](./docs/setup-aws-dbx.md)         | [install-ui-aws-dbx.sh](./scripts/install-ui-aws-dbx.sh) | [bootstrap-aws-dbx.sh](./scripts/bootstrap-aws-dbx.sh)    |
 |                   |                                               |                                          |                                                          |                                                           |
+
+# Contributing
+
+The Xonai Dashboard was just released and Xonai plans to bring many new features, such as supporting new cloud providers and making the it better at pinpointing issues in monitored clusters.
+Contributing with bugfixes, improvements and suggestions for new features are very welcome.
+
+## [Code of Conduct](./CODE_OF_CONDUCT.md)
+
+Xonai has adopted a Code of Conduct for which all project participants are expected to adhere to. Please read [the full text](./CODE_OF_CONDUCT.md) to understand the implications.
+
+## License
+
+Xonai Dashboard is [Apache 2.0 Licensed](./LICENSE).
