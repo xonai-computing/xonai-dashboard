@@ -1,0 +1,5 @@
+.DS_Store
+.idea
+cloud-ui.iml
+xonai-dashboard.iml
+__pycache__
