@@ -30,7 +30,7 @@ The [cluster bootstrap scripts](./scripts/) automate the installation of collect
 The relevant script should be copied into an S3 bucket or Databricks workspace file that tracked clusters are able to access. For example, the following bootstrap action configures an EMR cluster for 
 monitoring:
 
- <img src="images/BootstrapPush.png" width="500" height="150" />
+<img src="./images/BootstrapPush.png" width="528" height="114" />
 
 After the bootstrapping phase completes, the UI backend harvests the metrics and passes them to Grafana upon request. The usage [page](./docs/usage.md) covers the dashboard functionality in more detail.
 

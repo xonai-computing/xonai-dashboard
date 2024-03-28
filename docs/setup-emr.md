@@ -27,6 +27,6 @@ AWS guide explores cluster bootstrapping in more detail.
 The [bootstrap-emr-push.sh](../scripts/bootstrap-emr-push.sh) script needs to be referenced in a bootstrap action: When creating a cluster, paste its S3
 URI into the "Script location" field of the "Add bootstrap action" window. Specify the value of `$UI_IP4_DNS` (i.e., the IPv4 DNS of the Grafana instance) in the "Arguments" section. For example:
 
- <img src="../images/BootstrapPush.png" width="528" height="143" />
+<img src="../images/BootstrapPush.png" width="528" height="114" />
 
 The bootstrap configuration for pull ingestion is described in the [addendum](./misc.md#pull-mode-activation).
