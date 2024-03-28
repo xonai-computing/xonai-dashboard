@@ -1,17 +1,19 @@
 # Xonai Dashboard
-This project complements Xonai's Big Data [accelerator](https://www.xonai.io) and provides infrastructure information, hardware metrics, Spark metrics, and cost estimations. The raw data is summarized
-and visualized in multiple cross-linked Grafana dashboards:
+The Xonai Dashboard is Grafana-based application to assist Big Data infrastructure optimization initiatives where Spark applications are a dominant cost driver.
+It aggregates infrastructure utilization metrics, Spark execution metrics and cloud cost estimates for entire clusters and down to each individual Spark application with the goal of exposing optimization opportunities.
+
+The ingested metrics are parsed and visualized across multiple cross-linked Grafana dashboards:
 
 <img src="images/Overview.gif" />
 
-Our observability tool can be deployed easily and is straightforward to use: All UI-related components are installed by executing a single script and clusters are monitored after adding one bootstrap
+The Xonai Dashboard can be easily deployed: All UI-related components are installed by executing a single script and clusters are monitored after adding one bootstrap
 action that activates metric collector daemons, no code changes are required.
 
 A major classification dimension for monitoring solutions concerns their data ingestion pattern, a pull/polling-based approach (popularized by Prometheus) can be distinguished from a push-based
-approach (e.g., Ganglia). Many systems operate exclusively in one mode or have limited support for the alternative method. Our design supports both approaches and is therefore well suited for tracking
+approach (e.g., Ganglia). Many systems operate exclusively in one mode or have limited support for the alternative method. The Xonai Dashboard supports both approaches and is therefore well suited for tracking
 YARN clusters, Databricks clusters, and Kubernetes clusters. The [architecture](./images/Architecture.svg) is modular and integrates several popular open-source projects.
 
-Users can create their own dashboards and the system exposes endpoints for feeding custom metrics (e.g., from a SparkListener) to Grafana.
+Users can create their own dashboards and the system exposes endpoints for feeding custom metrics (e.g., from a `SparkListener`) to Grafana.
 The modular design also allows the integration of managed cloud services that exist for Grafana and several databases. The arrows in the architecture diagrams already indicate that all data flows
 between the monitoring components, no information (except for visualizations) leaves the system's environment.
 
@@ -24,7 +26,7 @@ script. For example, the UI backend can be configured for EMR with these command
 ```
 
 # Monitoring Clusters
-Our cluster bootstrap [scripts](./scripts/) automate the installation of collector daemons that periodically transmit or publish telemetry data and the configuration of Spark's internal metric system.
+The [cluster bootstrap scripts](./scripts/) automate the installation of collector daemons that periodically transmit or publish telemetry data and the configuration of Spark's internal metric system.
 The relevant script should be copied into an S3 bucket or Databricks workspace file that tracked clusters are able to access. For example, the following bootstrap action configures an EMR cluster for 
 monitoring:
 
@@ -36,8 +38,8 @@ After the bootstrapping phase completes, the UI backend harvests the metrics and
 The table below shows all supported platforms and points to the relevant platform-specific resources. The prerequisites and setup documents provide step-by-step installation and usage instructions
 for the Xonai Dashboard.
 
-| Platform         | Prerequisites Doc                             | Setup Doc                                | UI Installation Script                                   | Cluster Bootstrap Script                                  |
-|------------------|-----------------------------------------------|------------------------------------------|----------------------------------------------------------|-----------------------------------------------------------|
-| AWS & EMR        | [prerequ-emr](./docs/prerequ-emr.md)          | [setup-emr](./docs/setup-emr.md)         | [install-ui-emr.sh](./scripts/install-ui-emr.sh)         | [bootstrap-emr-push.sh](./scripts/bootstrap-emr-push.sh)  |
-| AWS & Databricks | [prerequ-aws-dbx](./docs/prerequ-aws-dbx.md)  | [setup-aws-dbx](./docs/setup-aws-dbx.md) | [install-ui-aws-dbx.sh](./scripts/install-ui-aws-dbx.sh) | [bootstrap-aws-dbx.sh](./scripts/bootstrap-aws-dbx.sh)    |
-|                  |                                               |                                          |                                                          |                                                           |
+| Platform          | Prerequisites Document                        | Setup Document                           | UI Installation Script                                   | Cluster Bootstrap Script                                  |
+|-------------------|-----------------------------------------------|------------------------------------------|----------------------------------------------------------|-----------------------------------------------------------|
+| Amazon EMR        | [Prerequisites](./docs/prerequ-emr.md)        | [Setup](./docs/setup-emr.md)             | [install-ui-emr.sh](./scripts/install-ui-emr.sh)         | [bootstrap-emr-push.sh](./scripts/bootstrap-emr-push.sh)  |
+| Databricks on AWS | [Prerequisites](./docs/prerequ-aws-dbx.md)    | [Setup](./docs/setup-aws-dbx.md)         | [install-ui-aws-dbx.sh](./scripts/install-ui-aws-dbx.sh) | [bootstrap-aws-dbx.sh](./scripts/bootstrap-aws-dbx.sh)    |
+|                   |                                               |                                          |                                                          |                                                           |

@@ -43,7 +43,7 @@ To configure the UI backend in pull mode, a variable `INGESTION_MODE` with the v
 The [AWS_REGIONS](#limiting-aws-regions) variable has an additional effect when the pull ingestion gets activated, its value will be configured as the polling region. If it is not set, an additional API call is made during the
 pull mode installation that tries to determine the UI instance's region. This response is then used as the scrape region, assuming that EMR clusters will be launched into the same region.
 
-Our [bootstrap-emr-pull.sh](../scripts/bootstrap-emr-pull.sh) script needs to be referenced in a bootstrap action: When creating a cluster, paste its S3 URI
+The script [bootstrap-emr-pull.sh](../scripts/bootstrap-emr-pull.sh) needs to be referenced in a bootstrap action: When creating a cluster, paste its S3 URI
 into the "Script location" field of the "Add bootstrap action" window, no additional arguments like peer addresses are required:
 
  <img src="../images/BootstrapPull.png" width="528" height="143" />

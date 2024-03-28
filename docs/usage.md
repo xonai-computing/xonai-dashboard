@@ -1,4 +1,4 @@
-# Using Xonai's Dashboard
+# Using the Xonai Dashboard
 After completing the setup steps, the Grafana web interface is available on the UI instance through port `3000`. The
 dashboards can be accessed by pasting one of the following URLs into a browser window:
 - The public IPv4 address of the Grafana instance with port `3000`. For example, _1.23.456.789:3000_
@@ -32,7 +32,7 @@ The following dashboards are automatically imported during the installation:
 - `Cluster Overview`: The summary page for one or more clusters. Cross-links to the dashboards for specific nodes, Spark applications, and instance types. The panels after the "Cluster Overview"
  row plot various utilization and saturation metrics for the cluster nodes and are inspired by an AWS [board](https://aws.amazon.com/blogs/big-data/monitor-and-optimize-analytic-workloads-on-amazon-emr-with-prometheus-and-grafana/).
 - `Spark Info`: Shows the [Spark metrics](https://spark.apache.org/docs/latest/monitoring.html#list-of-available-metrics-providers) for a specific Spark application.
-- `Node Exporter`: Integrates the node exporter [dashboard](https://github.com/rfmoz/grafana-dashboards) for visualizing the hardware and OS metrics of a single EC2 instance. Our bootstrap script deactivates several [default](https://github.com/prometheus/node_exporter#enabled-by-default) collectors 
+- `Node Exporter`: Integrates the node exporter [dashboard](https://github.com/rfmoz/grafana-dashboards) for visualizing the hardware and OS metrics of a single EC2 instance. The bootstrap script deactivates several [default](https://github.com/prometheus/node_exporter#enabled-by-default) collectors 
 and ignores irrelevant mount points which significantly reduces the number of time series that are ingested. As a consequence, most panels after the "Network Traffic" row will be empty. The 
 [appendix](./misc.md#activated-node-exporter-collectors) contains more detailed information and explains how this setting can be changed.
 - `Instance Type Info`: Shows the machine specs and pricing for a specific instance type.

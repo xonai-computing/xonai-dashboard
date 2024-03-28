@@ -47,7 +47,7 @@ The roles are reversed when metrics are pulled in, a request issued on the UI se
 ```
 
 ## Grafana Data Source Checks
-Our installation script automatically configures two Grafana data sources whose connections can be tested in the UI: The detail pages for the Prometheus and JSON plugins can be opened in
+The installation script automatically configures two Grafana data sources whose connections can be tested in the UI: The detail pages for the Prometheus and JSON plugins can be opened in
 the data sources window (`$UI_IP4_DNS:3000/connections/datasources`). After clicking on the "Save & test" buttons at the bottom of the respective detail pages, green check marks should occur. Error messages
 would indicate that the database or xonai_grafana daemons are not running or that their Grafana connections are misconfigured.
 

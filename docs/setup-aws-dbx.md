@@ -7,7 +7,7 @@ we can [SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-to-linu
 Before the installation script is executed on the UI instance, the two Databricks authentication variables [mentioned](./prerequ-aws-dbx.md#databricks-authentication) in the prerequisites page need to 
 be declared as follows:
 ``` bash
-[ec2-user@ip-123 ~]$ export DATABRICKS_HOST=https://dbc-12345678-90a1.cloud.databricks.com # ToDo: Change value
+[ec2-user@ip-123 ~]$ export DATABRICKS_HOST=https://dbc-12345678-90a1.cloud.databricks.com
 [ec2-user@ip-123 ~]$ export DATABRICKS_TOKEN=abc123ab45ae6adaf789aa0a00000000000 # ToDo: Change value
 ```
 
@@ -15,7 +15,7 @@ A few optional environment variables that influence the installation process and
 We recommend the definition of the `AWS_REGIONS` [variable](./misc.md/#limiting-aws-regions) that encodes the AWS region(s) where clusters will be launched. If unset, the script accesses cost data for 
 all AWS regions which prolongs its completion.
 
-Our [install-ui-aws-dbx.sh](../scripts/install-ui-aws-dbx.sh) script can now be downloaded and executed, it manages all installation and configuration steps:
+The script [install-ui-aws-dbx.sh](../scripts/install-ui-aws-dbx.sh) can now be downloaded and executed, it manages all installation and configuration steps:
 ``` bash
 [ec2-user@ip-123 ~]$ wget https://github.com/xonai-computing/xonai-dashboard/tree/master/scripts/install-ui-aws-dbx.sh # Download script
 [ec2-user@ip-123 ~]$ bash install-ui-aws-dbx.sh
@@ -25,7 +25,7 @@ are mentioned in the testing [chapter](./checks.md). Cluster metadata and cost e
 This will change after bootstrapping a Databricks cluster with our init script which is the topic of the next section.
 
 ## Databricks Cluster Configuration
-Our bootstrap script [bootstrap-aws-dbx.sh](../scripts/bootstrap-aws-dbx.sh) automates the installation of collector daemons that periodically transmit telemetry data. It can be stored and referenced 
+The bootstrap script [bootstrap-aws-dbx.sh](../scripts/bootstrap-aws-dbx.sh) automates the installation of collector daemons that periodically transmit telemetry data. It can be stored and referenced 
 in multiple ways, for example as a [Workspace file](https://docs.databricks.com/en/files/workspace.html) whose path is then added to the
 [initialization script](https://docs.databricks.com/en/init-scripts/cluster-scoped.html#configure-a-cluster-scoped-init-script-using-the-ui) list. The "Init Scripts" tab can be found in the 
 "Advanced Options" section at the bottom of a cluster configuration page:
