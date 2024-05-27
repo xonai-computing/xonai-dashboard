@@ -1,0 +1,33 @@
+- action: drop
+  if:
+  - '{__name__=~".*(DAGScheduler|BlockManager|LiveListenerBus|HiveExternalCatalog|CodeGenerator|NettyBlockTransfer).*"}'
+- action: graphite
+  match: "*.*.*.*.*.*"
+  labels:
+        __name__: "spark_${4}_${5}_${6}"
+        app_id: "$1"
+        agent: "$2"
+        ns: "$3"
+        job: "spark_scraper"
+        cluster_id: "local"
+        instance: "local"
+- action: graphite
+  match: "*.*.*.*.*"
+  labels:
+        __name__: "spark_${4}_${5}"
+        app_id: "$1"
+        agent: "$2"
+        ns: "$3"
+        job: "spark_scraper"
+        cluster_id: "local"
+        instance: "local"
+- action: graphite
+  match: "*.*.*.*"
+  labels:
+        __name__: "spark_${4}"
+        app_id: "$1"
+        agent: "$2"
+        ns: "$3"
+        job: "spark_scraper"
+        cluster_id: "local"
+        instance: "local"
