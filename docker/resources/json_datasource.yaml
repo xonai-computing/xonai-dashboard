@@ -2,7 +2,7 @@ apiVersion: 1
 datasources:
   - name: JSON
     type: simpod-json-datasource
-    url: http://uiapp:8000
+    url: http://apiserver:8000
     access: proxy
     editable: true
     uid: jsondatasource

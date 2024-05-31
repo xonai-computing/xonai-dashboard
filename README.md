@@ -39,11 +39,12 @@ After the bootstrapping phase completes, the UI backend harvests the metrics and
 The table below shows all supported platforms and points to the relevant platform-specific resources. The prerequisites and setup documents provide step-by-step installation and usage instructions
 for the Xonai Dashboard.
 
-| Platform          | Prerequisites Document                        | Setup Document                           | UI Installation Script                                   | Cluster Bootstrap Script                                  |
-|-------------------|-----------------------------------------------|------------------------------------------|----------------------------------------------------------|-----------------------------------------------------------|
-| Amazon EMR        | [Prerequisites](./docs/prerequ-emr.md)        | [Setup](./docs/setup-emr.md)             | [install-ui-emr.sh](./scripts/install-ui-emr.sh)         | [bootstrap-emr-push.sh](./scripts/bootstrap-emr-push.sh)  |
-| Databricks on AWS | [Prerequisites](./docs/prerequ-aws-dbx.md)    | [Setup](./docs/setup-aws-dbx.md)         | [install-ui-aws-dbx.sh](./scripts/install-ui-aws-dbx.sh) | [bootstrap-aws-dbx.sh](./scripts/bootstrap-aws-dbx.sh)    |
-|                   |                                               |                                          |                                                          |                                                           |
+| Platform          | Prerequisites Document                     | Setup Document                   | UI Installation Script                                   | Cluster Bootstrap Script                                 |
+|-------------------|--------------------------------------------|----------------------------------|----------------------------------------------------------|----------------------------------------------------------|
+| Local Use         | -                                          | [Setup](./docs/local.md)         | -                                                        | -                                                        |
+| Amazon EMR        | [Prerequisites](./docs/prerequ-emr.md)     | [Setup](./docs/setup-emr.md)     | [install-ui-emr.sh](./scripts/install-ui-emr.sh)         | [bootstrap-emr-push.sh](./scripts/bootstrap-emr-push.sh) |
+| Databricks on AWS | [Prerequisites](./docs/prerequ-aws-dbx.md) | [Setup](./docs/setup-aws-dbx.md) | [install-ui-aws-dbx.sh](./scripts/install-ui-aws-dbx.sh) | [bootstrap-aws-dbx.sh](./scripts/bootstrap-aws-dbx.sh)   |
+|                   |                                            |                                  |                                                          |                                                          |
 
 # Contributing
 
