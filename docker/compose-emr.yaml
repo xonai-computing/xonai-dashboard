@@ -1,0 +1,41 @@
+services:
+  victoriametrics: # Times series DB instance
+    container_name: victoriametrics
+    image: victoriametrics/victoria-metrics:v1.100.0
+    ports:
+      - 8428:8428
+    volumes:
+      - vmdata_emr:/storage
+    command:
+      - "--storageDataPath=/storage"
+      - "--httpListenAddr=:8428"
+    networks:
+      - dashboard_net
+  grafana: # Grafana instance configured with relevant dashboards and data sources
+    container_name: grafana
+    image: dashboard-grafana
+    depends_on:
+      - "victoriametrics"
+    ports:
+      - 3000:3000
+    volumes:
+      - grafanadata_emr:/var/lib/grafana
+    networks:
+      - dashboard_net
+  uiapp: # UI app instance for feeding metrics and cloud info to Grafana
+    container_name: apiserver
+    image: dashboard-app
+    volumes:
+      - ./resources/ec2:/root/.local/lib/python3.11/site-packages/xonai_grafana/cost_estimation/resources/ec2:ro
+      - ./resources/emr:/root/.local/lib/python3.11/site-packages/xonai_grafana/cost_estimation/resources/emr:ro
+#      - ~/.aws/credentials:/root/.aws/credentials:ro # ToDo: Might require different path to credentials file
+    environment:
+      - AWS_REGIONS=${AWS_REGIONS}
+      - ACTIVE_PLATFORM=AWS_EMR
+    networks:
+      - dashboard_net
+volumes:
+  vmdata_emr: { }
+  grafanadata_emr: { }
+networks:
+  dashboard_net:

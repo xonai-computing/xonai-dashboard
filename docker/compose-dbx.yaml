@@ -1,0 +1,41 @@
+services:
+  victoriametrics: # Times series DB instance
+    container_name: victoriametrics
+    image: victoriametrics/victoria-metrics:v1.100.0
+    ports:
+      - 8428:8428
+    volumes:
+      - vmdata_dbx:/storage
+    command:
+      - "--storageDataPath=/storage"
+      - "--httpListenAddr=:8428"
+    networks:
+      - dashboard_net
+  grafana: # Grafana instance configured with relevant dashboards and data sources
+    container_name: grafana
+    image: dashboard-grafana
+    depends_on:
+      - "victoriametrics"
+    ports:
+      - 3000:3000
+    volumes:
+      - grafanadata_dbx:/var/lib/grafana
+    networks:
+      - dashboard_net
+  uiapp: # UI app instance for feeding metrics and cloud info to Grafana
+    container_name: apiserver
+    image: dashboard-app
+    volumes:
+      - ./resources/ec2:/root/.local/lib/python3.11/site-packages/xonai_grafana/cost_estimation/resources/ec2:ro
+    environment:
+      - AWS_REGIONS=${AWS_REGIONS}
+      - ACTIVE_PLATFORM=AWS_DBX
+      - DATABRICKS_HOST=${DATABRICKS_HOST}
+      - DATABRICKS_TOKEN=${DATABRICKS_TOKEN}
+    networks:
+      - dashboard_net
+volumes:
+  vmdata_dbx: { }
+  grafanadata_dbx: { }
+networks:
+  dashboard_net:

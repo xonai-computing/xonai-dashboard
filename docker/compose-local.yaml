@@ -1,0 +1,67 @@
+services:
+  victoriametrics: # Times series DB instance
+    container_name: victoriametrics
+    image: victoriametrics/victoria-metrics:v1.100.0
+    ports:
+      - 8428:8428
+    volumes:
+      - vmdata:/storage
+    command:
+      - "--storageDataPath=/storage"
+      - "--httpListenAddr=:8428"
+      - "-enableTCP6"
+    networks:
+      - dashboard_net
+  vmagent: # Metrics collector
+    container_name: vmagent
+    image: victoriametrics/vmagent:v1.101.0
+    depends_on:
+      - "victoriametrics"
+    ports:
+      - 2003:2003
+    volumes:
+      - vmagentdata:/vmagentdata
+      - ./write_relabel.yaml:/etc/prometheus/write_relabel.yaml
+      - ./scrape_config.yaml:/etc/prometheus/scrape_config.yml
+    command:
+      - "--remoteWrite.relabelConfig=/etc/prometheus/write_relabel.yaml"
+      - "--promscrape.config=/etc/prometheus/scrape_config.yml"
+      - "--remoteWrite.url=http://victoriametrics:8428/api/v1/write"
+      - "--graphiteListenAddr=vmagent:2003"
+      - "-enableTCP6"
+    networks:
+      - dashboard_net
+  grafana: # Grafana instance configured with relevant dashboards and data sources
+    container_name: grafana
+    image: dashboard-grafana
+    depends_on:
+      - "victoriametrics"
+    ports:
+      - 3000:3000
+    volumes:
+      - grafanadata:/var/lib/grafana
+    networks:
+      - dashboard_net
+  node_exporter: # Collects host metrics
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    networks:
+      - dashboard_net
+    pid: host
+  spark_job: # Transient container with Spark application
+    container_name: spark_app
+    image: spark:3.5.1-scala
+    depends_on:
+      - victoriametrics
+      - vmagent
+    networks:
+      - dashboard_net
+    command: [ "sh", "-c", "/opt/spark/bin/spark-submit --class org.apache.spark.examples.SparkPi --master \"local[2]\" --conf \"spark.metrics.conf.*.sink.graphite.class\"=\"org.apache.spark.metrics.sink.GraphiteSink\" --conf \"spark.metrics.conf.*.sink.graphite.host\"=\"vmagent\" --conf \"spark.metrics.conf.*.sink.graphite.port\"=2003 --conf \"spark.metrics.conf.*.source.jvm.class\"=\"org.apache.spark.metrics.source.JvmSource\" --conf spark.metrics.appStatusSource.enabled=true --conf spark.executor.processTreeMetrics.enabled=true /opt/spark/examples/jars/spark-examples_2.12-3.5.1.jar 50000" ]
+volumes:
+  vmdata: { }
+  grafanadata: { }
+  vmagentdata: { }
+networks:
+  dashboard_net:
