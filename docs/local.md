@@ -45,7 +45,7 @@ Upon invocation, five containers in total are launched:
 
 <details>
 <summary>This multi-container application is visualized in the diagram below: (click me)</summary>
-<img src="../images/ArchiLocal.svg" width="382" height="351"/>
+<img src="https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/images/ArchiLocal.svg" width="382" height="351"/>
 </details>
 
 The Grafana web interface can now be accessed by pasting `localhost:3000` into a browser's address bar. The visitor will be directly forwarded to the welcome screen as authentication was disabled during
@@ -103,7 +103,7 @@ the remote SSH tunnel is closed.
 
 <details>
 <summary>The following diagram depicts the interplay of the various components that have been described: (click me)</summary>
-<img src="../images/ArchiLocal2.svg" width="616" height="364"/>
+<img src="https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/images/ArchiLocal2.svg" width="616" height="364"/>
 </details>
 
 
