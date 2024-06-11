@@ -1,4 +1,4 @@
-# Local Dashboard Use
+# Containerized Usage
 All dashboard components can be installed locally by executing commands similar to those in the cloud setup scripts. However, it is more convenient to containerize the application as multiple
 dependencies and configuration steps are involved. The only software requirements for running the commands in the next sections are [Docker](https://docs.docker.com/engine/install/) and
 Docker Compose. The latter is natively available in Docker Desktop and can be manually [added](https://docs.docker.com/compose/install/) in case an unbundled Docker engine was installed.
@@ -8,12 +8,12 @@ Most container images referenced in the compose files below were published by th
 from a customized image `dashboard-grafana` that adds multiple dashboards and data sources to an official Grafana image. This custom image for tracking local apps and EMR clusters can be built 
 with the [DockerfileGrafana](../docker/DockerfileGrafana) template and the following command:
 ```shell
-wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/DockerfileGrafana
+wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/DockerfileGrafana
 docker build -t dashboard-grafana -f DockerfileGrafana .
 ```
 If remote Databricks clusters should be tracked, an additional build argument needs to be supplied:
 ```shell
-wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/DockerfileGrafana
+wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/DockerfileGrafana
 docker build --build-arg="ACTIVE_PLATFORM=AWS_DBX" -t dashboard-grafana -f DockerfileGrafana .
 ```
 
@@ -21,7 +21,7 @@ The Docker apps in the "Monitoring Remote Applications" section utilize an API s
 [DockerfileApp](../docker/DockerfileApp) file which adds a layer with the server
 [code](https://github.com/xonai-computing/xonai-dashboard/tree/main/xonai-grafana) to an official Python image:
 ```shell
-wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/DockerfileApp
+wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/DockerfileApp
 docker build -t dashboard-app -f DockerfileApp .
 ```
 The final artefact is tagged with the name `dashboard-app`.
@@ -31,9 +31,9 @@ After building the custom Grafana image, the dashboard can be started in local m
 and the following compose command:
 ```shell
 # download compose file and config files for metric collector:
-wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/compose-local.yaml
-wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/resources/write_relabel.yaml
-wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/resources/scrape_config.yaml
+wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/compose-local.yaml
+wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/resources/write_relabel.yaml
+wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/resources/scrape_config.yaml
 docker compose -p dashboard-local -f compose-local.yaml up
 ```
 
@@ -45,7 +45,7 @@ Upon invocation, five containers in total are launched:
 
 <details>
 <summary>This multi-container application is visualized in the diagram below: (click me)</summary>
-<img src="https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/images/ArchiLocal.svg" width="382" height="351"/>
+<img src="https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/images/ArchiLocal.svg" width="382" height="351"/>
 </details>
 
 The Grafana web interface can now be accessed by pasting `localhost:3000` into a browser's address bar. The visitor will be directly forwarded to the welcome screen as authentication was disabled during
@@ -103,7 +103,7 @@ the remote SSH tunnel is closed.
 
 <details>
 <summary>The following diagram depicts the interplay of the various components that have been described: (click me)</summary>
-<img src="https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/images/ArchiLocal2.svg" width="616" height="364"/>
+<img src="https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/images/ArchiLocal2.svg" width="616" height="364"/>
 </details>
 
 
@@ -143,7 +143,7 @@ by the AWS CLI) to the environment section of compose-emr.yaml: (click me)</summ
 The Compose configuration can now be executed:
 ```shell
 export AWS_REGIONS=us-east-1 # initial region for cluster dashboards
-wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/compose-emr.yaml
+wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/compose-emr.yaml
 # modify volumes or environment section as required
 docker compose -p dashboard-emr -f compose-emr.yaml up
 ```
@@ -177,7 +177,7 @@ export DATABRICKS_TOKEN=... # holds the access token
 The Compose configuration can now be executed:
 ```shell
 export AWS_REGIONS=us-east-1 # initial region for cluster dashboards
-wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/compose-dbx.yaml
+wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/compose-dbx.yaml
 docker compose -p dashboard-dbx -f compose-dbx.yaml up
 ```
 

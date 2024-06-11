@@ -18,9 +18,9 @@ RUN perl -i -pe 'BEGIN{undef $/;} s/\[auth\.anonymous\]\n# enable anonymous acce
 # install data sources
 USER grafana
 RUN grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install simpod-json-datasource
-RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/resources/dashboard_provider.yaml --output /etc/grafana/provisioning/dashboards/default.yaml
-RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/resources/json_datasource.yaml --output /etc/grafana/provisioning/datasources/json_datasource.yaml
-RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/DockerSupport/docker/resources/prometheus_datasource.yaml --output /etc/grafana/provisioning/datasources/prometheus_datasource.yaml
+RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/resources/dashboard_provider.yaml --output /etc/grafana/provisioning/dashboards/default.yaml
+RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/resources/json_datasource.yaml --output /etc/grafana/provisioning/datasources/json_datasource.yaml
+RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/resources/prometheus_datasource.yaml --output /etc/grafana/provisioning/datasources/prometheus_datasource.yaml
 # configure dashboards
 RUN if [ "$ACTIVE_PLATFORM" = "AWS_DBX" ]; then \
         curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/ClusterList.json --output /var/lib/grafana/dashboards/ClusterList.json && \
