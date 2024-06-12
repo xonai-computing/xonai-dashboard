@@ -1,14 +1,17 @@
 #!/bin/bash
 # Xonai Dashboard bootstrap script AWS Databricks push (https://github.com/xonai-computing/xonai-dashboard)
 
-AGENT_CMD=${AGENT_CMD:-'/usr/local/bin/vmagent-prod -remoteWrite.tmpDataPath /tmp/vmagent-remotewrite-data -remoteWrite.url=http://UI_SERVER:8428/api/v1/write -enableTCP6 -promscrape.config /tmp/scrape_config.yaml -graphiteListenAddr localhost:2003 -remoteWrite.relabelConfig /tmp/write_relabel.yaml'}
+AGENT_CMD=${AGENT_CMD:-'/usr/local/bin/vmagent-prod -remoteWrite.tmpDataPath /tmp/vmagent-remotewrite-data -remoteWrite.url=METRIC_SERVER/api/v1/write -enableTCP6 -promscrape.config /tmp/scrape_config.yaml -graphiteListenAddr localhost:2003 -remoteWrite.relabelConfig /tmp/write_relabel.yaml'}
 MOUNT_BLACKLIST=${MOUNT_BLACKLIST:-'--collector.filesystem.mount-points-exclude=^/(mnt/tmp|dbfs|Workspace|Volumes|dev|proc|run/credentials/.+|sys|var/lib/docker/.+|var/lib/containers/storage/.+)($|/)'}
 FS_BLACKLIST=${FS_BLACKLIST:-'--collector.filesystem.fs-types-exclude=^(tmpfs|autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$'}
 DISABLED_COLLECTORS=${DISABLED_COLLECTORS:-'--web.disable-exporter-metrics --no-collector.arp --no-collector.bonding --no-collector.btrfs --no-collector.conntrack --no-collector.dmi --no-collector.entropy --no-collector.fibrechannel --no-collector.hwmon --no-collector.mdadm --no-collector.netstat --no-collector.os --no-collector.powersupplyclass --no-collector.pressure --no-collector.rapl --no-collector.schedstat --no-collector.selinux --no-collector.sockstat --no-collector.softnet --no-collector.stat --no-collector.tapestats --no-collector.textfile --no-collector.thermal_zone --no-collector.time --no-collector.timex --no-collector.udp_queues --no-collector.xfs --no-collector.zfs'}
 
 echo 'Starting main bootstrap script (push Dbx)'
 # UI_SERVER=''  # needs to be specified if an env variable is not set in the Dbx cluster configurations
-echo "Metric server specified is: ${UI_SERVER}"
+if [[ ! "$UI_SERVER" =~ ^http  ]]; then
+  UI_SERVER="http://$UI_SERVER:8428" # augment an EC2 IPv4 DNS
+fi
+echo "Metric server URL used: ${UI_SERVER}"
 ARCHI=$(uname -m) # x86_64 or aarch64
 if [ "$ARCHI" != 'x86_64' ] && [ "$ARCHI" != 'aarch64' ]; then
     echo "Unknown platform $ARCHI, exiting"
@@ -72,7 +75,7 @@ ExecStart=$AGENT_CMD
 [Install]
 WantedBy=multi-user.target
 EOF
-  sudo sed -i "s|UI_SERVER|$UI_SERVER|g" /tmp/metrics_agent.service
+  sudo sed -i "s|METRIC_SERVER|$UI_SERVER|g" /tmp/metrics_agent.service
 
   cat << 'EOF' >> /tmp/scrape_config.yaml
 global:

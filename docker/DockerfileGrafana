@@ -1,0 +1,43 @@
+FROM grafana/grafana:10.3.3-ubuntu
+
+ARG ACTIVE_PLATFORM=AWS_EMR
+ARG GF_GID="0"
+ENV GF_PATHS_PLUGINS="/var/lib/grafana-plugins"
+
+USER root
+RUN apt-get -y update
+RUN apt-get install wget
+RUN mkdir -p "$GF_PATHS_PLUGINS" && \
+    chown -R grafana:${GF_GID} "$GF_PATHS_PLUGINS"
+RUN mkdir -p /var/lib/grafana/dashboards && \
+    chown -R grafana:${GF_GID} /var/lib/grafana/dashboards
+RUN mkdir -p /etc/grafana/provisioning/dashboards/emr && \
+    chown -R grafana:${GF_GID} /etc/grafana/provisioning/dashboards
+# disable login screen
+RUN perl -i -pe 'BEGIN{undef $/;} s/\[auth\.anonymous\]\n# enable anonymous access\nenabled = false/\[auth\.anonymous\]\n# enable anonymous access\nenabled = true/smg' /usr/share/grafana/conf/defaults.ini
+# install data sources
+USER grafana
+RUN grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install simpod-json-datasource
+RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/resources/dashboard_provider.yaml --output /etc/grafana/provisioning/dashboards/default.yaml
+RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/resources/json_datasource.yaml --output /etc/grafana/provisioning/datasources/json_datasource.yaml
+RUN curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/resources/prometheus_datasource.yaml --output /etc/grafana/provisioning/datasources/prometheus_datasource.yaml
+# configure dashboards
+RUN if [ "$ACTIVE_PLATFORM" = "AWS_DBX" ]; then \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/ClusterList.json --output /var/lib/grafana/dashboards/ClusterList.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/ClusterListExtended.json --output /var/lib/grafana/dashboards/ClusterListExtended.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/ClusterOverview.json --output /var/lib/grafana/dashboards/ClusterOverview.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/GeneralOverview.json --output /var/lib/grafana/dashboards/GeneralOverview.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/InstanceTypeInfo.json --output /var/lib/grafana/dashboards/InstanceTypeInfo.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/NodeExporter.json --output /var/lib/grafana/dashboards/NodeExporter.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/SparkInfo.json --output /var/lib/grafana/dashboards/SparkInfo.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/aws-dbx/TestSetup.json --output /var/lib/grafana/dashboards/TestSetup.json ; \
+    else \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/emr/ClusterList.json --output /var/lib/grafana/dashboards/ClusterList.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/emr/ClusterListExtended.json --output /var/lib/grafana/dashboards/ClusterListExtended.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/emr/ClusterOverview.json --output /var/lib/grafana/dashboards/ClusterOverview.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/emr/GeneralOverview.json --output /var/lib/grafana/dashboards/GeneralOverview.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/emr/InstanceTypeInfo.json --output /var/lib/grafana/dashboards/InstanceTypeInfo.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/emr/NodeExporter.json --output /var/lib/grafana/dashboards/NodeExporter.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/emr/SparkInfo.json --output /var/lib/grafana/dashboards/SparkInfo.json && \
+        curl https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/dashboards/emr/TestSetup.json --output /var/lib/grafana/dashboards/TestSetup.json ; \
+    fi

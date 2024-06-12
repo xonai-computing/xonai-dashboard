@@ -1,0 +1,10 @@
+FROM python:3.11-bookworm
+
+RUN git clone -n --depth=1 --filter=tree:0 https://github.com/xonai-computing/xonai-dashboard
+RUN cd xonai-dashboard && git sparse-checkout set --no-cone xonai-grafana && git checkout
+RUN rm -rf /xonai-dashboard/.git
+RUN perl -i -pe 's/localhost:8428/victoriametrics:8428/smg' /xonai-dashboard/xonai-grafana/xonai_grafana/utils/tsdb.py
+RUN pip install -r /xonai-dashboard/xonai-grafana/requirements.txt
+RUN python -m pip install --user /xonai-dashboard/xonai-grafana/.
+
+CMD ["uvicorn", "xonai_grafana.main:app", "--host", "0.0.0.0"]
