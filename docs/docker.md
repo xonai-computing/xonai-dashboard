@@ -11,7 +11,7 @@ with the [DockerfileGrafana](../docker/DockerfileGrafana) template and the follo
 wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/DockerfileGrafana
 docker build -t dashboard-grafana -f DockerfileGrafana .
 ```
-If remote Databricks clusters should be tracked, an additional build argument needs to be supplied:
+If Databricks clusters will be monitored, an additional build argument needs to be supplied:
 ```shell
 wget https://raw.githubusercontent.com/xonai-computing/xonai-dashboard/main/docker/DockerfileGrafana
 docker build --build-arg="ACTIVE_PLATFORM=AWS_DBX" -t dashboard-grafana -f DockerfileGrafana .
@@ -49,9 +49,9 @@ Upon invocation, five containers in total are launched:
 </details>
 
 The Grafana web interface can now be accessed by pasting `localhost:3000` into a browser's address bar. The visitor will be directly forwarded to the welcome screen as authentication was disabled during
-the creation of the custom image, modifications to panels and dashboards can be made after signing in with the username and password `admin`.
+the creation of the custom image, modifications to panels can be made after signing in with the username and password `admin`.
 
-Many dashboard panels are blank since local runs do not produce executor metrics or capture cloud infrastructure information. The `Cluster Overview` board visualizes the Docker host as a single-node cluster
+Many dashboard panels remain blank since local runs do not produce executor metrics or capture cloud infrastructure information. The `Cluster Overview` board visualizes the Docker host as a single-node cluster
 and displays its system metrics. These are captured by the node_exporter container for which a dedicated `Node Exporter` dashboard is available, it displays the host metrics in more detail. The `Spark Info`
 dashboard summarizes the application metrics that are emitted from the Spark container. The aforementioned boards should be visited a few minutes after the docker compose command was 
 issued and "Last 5 minutes" should be chosen in the time range selector in the top right corner.
@@ -151,7 +151,7 @@ docker compose -p dashboard-emr -f compose-emr.yaml up
 To ingest metrics from an EMR cluster, a database destination URL needs to be provided as an argument to the bootstrap script, this initialization process is described in the EMR setup 
 [document](setup-emr.md#bootstrap-action-for-default-push-mode). If the Docker host is outside the cloud network, an open tunnel connection for local port `8428` may be required and the tunnel URL can be 
 used as the bootstrap argument instead of the IPv4 DNS of an EC2 instance for example. A sample command for remote port forwarding has already been mentioned in the previous 
-[section](#monitoring-remote-applications), the https URL that it returns can be used as the bootstrap argument.
+[section](#monitoring-remote-applications), the https URL that it returns can be pasted into the argument field of the bootstrap action.
 
 ### Monitoring Databricks Clusters
 The [compose-dbx.yaml](../docker/compose-dbx.yaml) file defines three dashboard containers for tracking Databricks clusters and references the two custom images whose creation is specified [above](#building-dashboard-images).
